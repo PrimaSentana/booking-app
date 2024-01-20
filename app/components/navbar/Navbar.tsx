@@ -11,11 +11,11 @@ const Navbar = () => {
     	<div className="fixed w-full z-10 shadow-sm bg-white">
         	<div className="py-4 borber-b-[1px]">
           	<Container>
-					<div className="flex flex-row items-center justify-between gap md:gap-0">
+				<div className="flex flex-row items-center justify-between gap md:gap-0">
 					<Logo/>
 					<Search/>
 					<UserProfile/>
-					</div>
+				</div>
           	</Container>
         	</div>
     	</div>

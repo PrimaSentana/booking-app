@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/navbar/Navbar'
 import RegisterModal from './components/modals/RegisterModal'
+import { Toaster } from 'react-hot-toast'
 
 // font changer
 
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster />
         <RegisterModal/>
         <Navbar/>
         {children}

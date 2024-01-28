@@ -1,11 +1,14 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import bcrypt from 'bcrypt';
+
 import prisma from "@/app/libs/prismadb"
+
 
 export const authOption: AuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -25,10 +28,47 @@ export const authOption: AuthOptions = {
                 password: { label: 'password', type: 'password' },
             },
             async authorize(credentials) {
+
+                // check if user have input email or password
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error('Invalid credentials');
                 }
+
+                // finding user
+                const user = await prisma.user.findUnique({
+                    where : {
+                        email: credentials.email
+                    }
+                });
+
+                // check if there's the user, or check if the user have hashed password.
+                if (!user || !user.hashedPassword) {
+                    throw new Error('Invalid credentials')
+                }
+
+                // checking user password throw user password input and on db
+                const isCorrectPassword = await bcrypt.compare(
+                    credentials.password,
+                    user.hashedPassword
+                );
+
+                // check correct password
+                if (!isCorrectPassword) {
+                    throw new Error('Invalid credentials');
+                }
+
+                return user;
             },
         })
-    ]
-}
+    ],
+    pages: {
+        signIn: '/',
+    },
+    debug: process.env.NODE_ENV === 'development',
+    session: {
+        strategy: 'jwt'
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+};
+
+export default NextAuth(authOption);

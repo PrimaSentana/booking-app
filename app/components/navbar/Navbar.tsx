@@ -7,12 +7,11 @@ import Search from "./Search";
 import UserProfile from "./UserProfile";
 
 interface NavbarProps {
-	currentUser: User | null
+	currentUser?: User | null
 }
 
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
-	console.log({ currentUser });
    	return (
     	<div className="fixed w-full z-10 shadow-sm bg-white">
         	<div className="py-4 borber-b-[1px]">
@@ -20,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
 				<div className="flex flex-row items-center justify-between gap md:gap-0">
 					<Logo/>
 					<Search/>
-					<UserProfile/>
+					<UserProfile currentUser={currentUser} />
 				</div>
           	</Container>
         	</div>

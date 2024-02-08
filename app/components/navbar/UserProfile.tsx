@@ -5,9 +5,11 @@ import Profile from "../Profile";
 import { useCallback, useState } from "react";
 import MenuItems from "./MenuItems";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const UserProfile = () => {
    const registerModal = useRegisterModal();
+   const loginModal = useLoginModal();
    const [isOpen, setIsOpen] = useState(false);
 
    const toggleOpen = useCallback(() => {
@@ -67,7 +69,7 @@ const UserProfile = () => {
 						<>
 							<MenuItems 
                         label="Login"
-                        onClick={() => {}}
+                        onClick={loginModal.onOpen}
                      />
 							<MenuItems 
                         label="Sign Up"

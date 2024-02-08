@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from './components/navbar/Navbar'
 import RegisterModal from './components/modals/RegisterModal'
 import { Toaster } from 'react-hot-toast'
+import LoginModal from './components/modals/LoginModal'
 
 // font changer
 
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
+        <LoginModal />
         <RegisterModal/>
         <Navbar/>
         {children}

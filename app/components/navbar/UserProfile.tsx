@@ -6,11 +6,11 @@ import { useCallback, useState } from "react";
 import MenuItems from "./MenuItems";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
 
 interface UserProfileProps {
-   currentUser?: User | null;
+   currentUser?: SafeUser | null;
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({ currentUser }) => {
@@ -64,7 +64,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ currentUser }) => {
             >
               <AiOutlineMenu/>
               <div className="hidden md:block">
-                  <Profile/>
+                  <Profile src={currentUser?.image}/>
               </div>
             </div>
    		</div>

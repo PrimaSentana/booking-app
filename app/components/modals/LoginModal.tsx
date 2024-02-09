@@ -97,12 +97,12 @@ const LoginModal = () => {
             <div className="text-neutral-500 text-center mt-4 font-light">
                 <div className="flex flex-row justify-center items-center gap-2">
                     <div>
-                        Already have account?
+                        Do not have an account?
                     </div>
                     <div className="text-blue-400 font-semibold cursor-pointer hover:underline"
-                        onClick={registerModal.onClose}
+                        onClick={loginModal.onClose}
                     >
-                        Log in
+                        Sign In
                     </div>
                 </div>
             </div>

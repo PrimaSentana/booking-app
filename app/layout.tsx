@@ -1,11 +1,12 @@
+import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
-import Navbar from './components/navbar/Navbar'
-import RegisterModal from './components/modals/RegisterModal'
 import { Toaster } from 'react-hot-toast'
-import LoginModal from './components/modals/LoginModal'
+import Navbar from './components/navbar/Navbar'
 import getCurrentUser from './actions/getCurrentUser'
+import RentModal from './components/modals/RentModal'
+import LoginModal from './components/modals/LoginModal'
+import RegisterModal from './components/modals/RegisterModal'
 
 // font changer
 
@@ -25,10 +26,12 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const currentUser = await getCurrentUser();
+  
   return (
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
+        <RentModal />
         <LoginModal />
         <RegisterModal/>
         <Navbar currentUser={currentUser} />

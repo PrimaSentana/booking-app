@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
     const router = useRouter();
+
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,7 @@ const LoginModal = () => {
         }
     } = useForm<FieldValues>({
         defaultValues: {
-            name: '',
+            email: '',
             password: ''
         }
     });
@@ -55,6 +56,11 @@ const LoginModal = () => {
             }
         })
     }
+
+    const toggle = useCallback(() => {
+        loginModal.onClose();
+        registerModal.onOpen();
+    }, [loginModal, registerModal]);
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
@@ -100,9 +106,9 @@ const LoginModal = () => {
                         Do not have an account?
                     </div>
                     <div className="text-blue-400 font-semibold cursor-pointer hover:underline"
-                        onClick={loginModal.onClose}
+                        onClick={toggle}
                     >
-                        Sign In
+                        Create Account
                     </div>
                 </div>
             </div>
@@ -123,4 +129,4 @@ const LoginModal = () => {
     )
 }
 
-export default LoginModal
+export default LoginModal;

@@ -1,13 +1,17 @@
 'use client';
 
 import { AiOutlineMenu } from "react-icons/ai";
-import Profile from "../Profile";
 import { useCallback, useState } from "react";
-import MenuItems from "./MenuItems";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/useLoginModal";
+
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
+
+import Profile from "../Profile";
+import MenuItems from "./MenuItems";
+
+import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import useRentModal from "@/app/hooks/useRentModal";
 
 interface UserProfileProps {
    currentUser?: SafeUser | null;
@@ -16,11 +20,21 @@ interface UserProfileProps {
 const UserProfile: React.FC<UserProfileProps> = ({ currentUser }) => {
    const registerModal = useRegisterModal();
    const loginModal = useLoginModal();
+   const RentModal = useRentModal();
    const [isOpen, setIsOpen] = useState(false);
 
    const toggleOpen = useCallback(() => {
      setIsOpen((value) => !value);
    }, [])
+
+   const onRent = useCallback(() => {
+      if (!currentUser) {
+         return loginModal.onOpen();
+      }
+
+      RentModal.onOpen();
+   }, [currentUser, loginModal, RentModal])
+
    return (
      	<div className="relative">
          <div className="flex flex-row items-center gap-3">
@@ -37,9 +51,9 @@ const UserProfile: React.FC<UserProfileProps> = ({ currentUser }) => {
                   transition
                   cursor-pointer
                "
-               onClick={() => {}}
+               onClick={onRent}
             >
-            	Home Profile
+            	Find your place
             </div>
 
 				{/* hamburger */}
@@ -91,8 +105,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ currentUser }) => {
                            onClick={() => {}}
                         />
                         <MenuItems 
-                           label="Home Profile"
-                           onClick={() => {}}
+                           label="Find your place"
+                           onClick={onRent}
                         />
                         <hr />
                         <MenuItems 

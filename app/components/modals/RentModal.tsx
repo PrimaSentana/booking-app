@@ -22,7 +22,38 @@ const RentModal = () => {
 
     const [step, setStep] = useState(STEPS.CATEGORY);
 
-    
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        formState: {
+            errors,
+        },
+        reset
+    } = useForm<FieldValues>({
+        defaultValues: {
+            title: '',
+            description: '',
+            category: '',
+            imageSrc: '',
+            location: null,
+            guestCount: 1,
+            roomCount: 1,
+            bathroomCount: 1,
+            price: 1,
+        }
+    })
+
+    const category = watch("category");
+
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+            shouldValidate: true,
+            shouldDirty: true,
+            shouldTouch: true,
+        })
+    }
 
     const nextStep = () => {
         setStep((value) => value + 1);
@@ -59,8 +90,8 @@ const RentModal = () => {
                 {categories.map((item) => (
                     <div key={item.label} className="col-span-1">
                         <CategoryInput 
-                            onClick={() => {}}
-                            selected={false}
+                            onClick={(category) => setCustomValue("category", category)}
+                            selected={category === item.label}
                             label={item.label}
                             icon={item.icon}
                         />

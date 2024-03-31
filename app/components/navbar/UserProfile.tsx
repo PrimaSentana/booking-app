@@ -53,7 +53,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ currentUser }) => {
                "
                onClick={onRent}
             >
-            	Define your properties
+            	Add Yours!
             </div>
 
 				{/* hamburger */}

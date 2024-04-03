@@ -14,12 +14,12 @@ const Logo: React.FC<LogoProps> = ({ userName }) => {
    return (
       <>
          <Image
-         className="hidden md:block cursor-pointer"
-         onClick={() => router.push('/')}
-         width={120}
-         height={120}
-         src={"/logo.svg"}
-         alt="Roamradar"
+            className="hidden md:block cursor-pointer"
+            onClick={() => router.push('/')}
+            width={120}
+            height={120}
+            src={"/logo.svg"}
+            alt="Roamradar"
 		   />
          {userName && (
             <div>Hi, <span className="text-md font-semibold">{userName}</span></div>

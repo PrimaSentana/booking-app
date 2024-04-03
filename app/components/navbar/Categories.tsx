@@ -11,12 +11,12 @@ export const categories = [
     {
         label: "Beach",
         icon: TbBeach,
-        description: "Find places close to the beach!"
+        description: "This place close to the beach!"
     },
     {
         label: "Windmills",
         icon: GiWindmill,
-        description: "Places that have Windmills!"
+        description: "Have Windmills!"
     },
     {
         label: "Modern",
@@ -36,7 +36,7 @@ export const categories = [
     {
         label: "Temple",
         icon: GiMeditation ,
-        description: "This property have a pool!"
+        description: "This property near a temple!"
     },
     {
         label: "Lake",

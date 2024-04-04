@@ -45,6 +45,7 @@ const RegisterModal = () => {
             })
             .finally(() => {
                 setIsLoading(false);
+                loginModal.onOpen();
             })
     }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import L, { LatLngBoundsExpression } from "leaflet";
+import L, { LatLngBounds, LatLngBoundsExpression } from "leaflet";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -20,24 +20,34 @@ interface MapProps {
     center?: number[];
 }
 
+
 const Map: React.FC<MapProps> = ({ center }) => {
-  return (
-    <MapContainer
-        className="h-[35vh] rounded-lg"
-        center={center as L.LatLngExpression || [51, -0.09]}
-        zoom={center ? 4 : 2}
-    >
-        <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {center && (
-            <Marker
-                position={center as L.LatLngExpression}
+    const bounds: LatLngBounds = L.latLngBounds(
+        L.latLng(-85, -180), // south-west corner
+        L.latLng(85, 180) // north-east corner
+    );
+    return (
+        <MapContainer
+            className="h-[35vh] rounded-lg"
+            center={center as L.LatLngExpression || [51, -0.09]}
+            zoom={center ? 4 : 2}
+            worldCopyJump={true}
+            maxBounds={bounds}
+            maxBoundsViscosity={1}
+        >
+            <TileLayer
+                noWrap={true}
+                minZoom={2}
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-        )}
-    </MapContainer>
-  )
+            {center && (
+                <Marker
+                    position={center as L.LatLngExpression}
+                />
+            )}
+        </MapContainer>
+    )
 }
 
 export default Map
